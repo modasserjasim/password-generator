@@ -10,18 +10,22 @@ const getElement = (id) => {
 const handleSlider = (event) => {
   const charCountEl = getElement("char-count");
   charCountEl.innerText = event;
+
+  generatePassword();
 };
 
 const handleCheckbox = () => {
   const numberEl = getElement("number");
+  console.log(numberEl);
   const specialCharEl = getElement("special");
+  console.log(specialCharEl);
 
-  if (numberEl.checked === "true") {
-    charSet = "0123456789";
+  if (numberEl.checked === true) {
+    charSet += "0123456789";
   } else {
     charSet = charSet.replace(/0123456789/g, "");
   }
-  if (specialCharEl.checked === "true") {
+  if (specialCharEl.checked === true) {
     charSet += "!@#$%^&()";
   } else {
     charSet = charSet.replace(/[^\w ]/g, "");
@@ -30,18 +34,21 @@ const handleCheckbox = () => {
 };
 
 const generatePassword = () => {
-  const passwordEl = getElement("pass");
+  // console.log('clicked');
+  const passwordEl = getElement("password");
+  // console.log(passwordEl.value);
 
-  const charCount = getElement("char-count");
+  const charCount = getElement("char-count").innerText;
+  console.log(charCount);
 
   let password = "";
 
-  for (let i = 0; i < charCount.length; i++) {
+  for (let i = 0; i < charCount; i++) {
     const randomNumber = Math.floor(Math.random() * charSet.length);
     password += charSet.substring(randomNumber, randomNumber + 1);
   }
 
-  passwordEl.innerText = password;
+  passwordEl.value = password;
 };
 
 const handleViewPassword = () => {
